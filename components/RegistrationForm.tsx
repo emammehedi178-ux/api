@@ -36,9 +36,17 @@ const RegistrationForm: React.FC = () => {
   // Load existing teams for validation
   useEffect(() => {
     const loadTeams = async () => {
-      const data = await getRegistrations();
-      if (data && data.length > 0) {
-        setExistingTeams(data.map(d => d.teamName.toLowerCase()));
+      try {
+        const data = await getRegistrations();
+        if (data && Array.isArray(data) && data.length > 0) {
+          // Safe mapping with optional chaining
+          const names = data
+            .map(d => d?.teamName?.toLowerCase())
+            .filter(name => name); // Filter out undefined/null/empty strings
+          setExistingTeams(names);
+        }
+      } catch (error) {
+        console.error("Failed to load existing teams", error);
       }
     };
     loadTeams();
