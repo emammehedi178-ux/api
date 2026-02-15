@@ -5,6 +5,9 @@ import { cn } from '../../utils/cn';
 interface ButtonProps extends HTMLMotionProps<"button"> {
   variant?: 'primary' | 'secondary' | 'danger' | 'outline' | 'ghost';
   isLoading?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({ 
