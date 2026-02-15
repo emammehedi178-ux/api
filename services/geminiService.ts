@@ -36,8 +36,8 @@ export const generateTeamName = async (gameType: string): Promise<string> => {
   }
 
   try {
-    // Using a flash model for speed and cost-effectiveness
-    const model = "gemini-2.5-flash-latest"; 
+    // Using gemini-3-flash-preview for best performance on text tasks
+    const model = "gemini-3-flash-preview"; 
     const prompt = `Generate a cool, aggressive, single-word or two-word esports team name for a ${gameType} tournament. 
     It should sound professional and intimidating. Do not add quotes or explanations. Just the name.`;
     
