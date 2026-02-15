@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 // Robustly retrieve the API Key.
 // 1. Try import.meta.env (Standard Vite way)
 // 2. Try process.env (Standard Node/Webpack/Vercel way)
-// 3. Fallback to empty string to prevent "process is not defined" crash.
+// 3. Fallback to empty string.
 const getApiKey = () => {
   try {
     // @ts-ignore
@@ -26,11 +26,22 @@ const getApiKey = () => {
   return "";
 };
 
-const apiKey = getApiKey();
-const ai = new GoogleGenAI({ apiKey });
+// Initialize lazily or safely
+let aiInstance: GoogleGenAI | null = null;
+const getAiInstance = () => {
+  if (!aiInstance) {
+    const key = getApiKey();
+    if (key) {
+      aiInstance = new GoogleGenAI({ apiKey: key });
+    }
+  }
+  return aiInstance;
+};
 
 export const generateTeamName = async (gameType: string): Promise<string> => {
-  if (!apiKey) {
+  const ai = getAiInstance();
+  
+  if (!ai) {
     console.warn("Gemini API Key missing. Please set VITE_API_KEY in .env or API_KEY in Vercel.");
     return "Team " + Math.floor(Math.random() * 1000);
   }
