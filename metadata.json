@@ -1,0 +1,5 @@
+{
+  "name": "Thalta FF Championship",
+  "description": "Professional Esports Tournament Registration Platform for Free Fire players in Bangladesh. Features a dark gaming theme, team registration with Google Sheets sync, admin dashboard, and AI-powered team name generation.",
+  "requestFramePermissions": []
+}
