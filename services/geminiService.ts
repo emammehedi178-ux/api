@@ -1,8 +1,10 @@
 import { GoogleGenAI } from "@google/genai";
 
-// WARNING: In a real production app, API keys should not be exposed on the frontend.
-// For this "Master Prompt" exercise, we assume the environment variable is injected safely or this is a demo.
-const apiKey = process.env.API_KEY || ""; 
+// SAFELY access the API Key. 
+// In Vite, `process` is not defined in the browser. We check for it to prevent crashes.
+// Note: In a standard Vite setup, you should use `import.meta.env.VITE_API_KEY`.
+// However, assuming Vercel Environment Variables are set, we handle the access safely.
+const apiKey = (typeof process !== "undefined" && process.env && process.env.API_KEY) || "";
 
 const ai = new GoogleGenAI({ apiKey });
 
